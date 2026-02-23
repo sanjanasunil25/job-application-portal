@@ -1,0 +1,72 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import axios from "axios";
+import AuthGuard from "../components/AuthGuard";
+import Navbar from "../components/Navbar";
+
+export default function AdminDashboard() {
+  const [stats, setStats] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get(
+          "http://localhost:5000/api/dashboard/stats",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setStats(res.data);
+      } catch (err) {
+        console.log("Failed to load stats");
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  if (!stats) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        Loading stats...
+      </main>
+    );
+  }
+
+  return (
+    <AuthGuard>
+      <main className="min-h-screen bg-gray-50">
+        <Navbar />
+
+        <div className="max-w-5xl mx-auto pt-28 px-6">
+          <h1 className="text-3xl font-bold mb-10">Admin Dashboard</h1>
+
+          <div className="grid md:grid-cols-2 gap-6">
+
+            <div className="p-6 bg-white rounded-xl shadow">
+              <h2 className="font-semibold text-lg mb-4">Jobs</h2>
+              <p>Total: {stats.jobs.totalJobs}</p>
+              <p>Open: {stats.jobs.openJobs}</p>
+              <p>Closed: {stats.jobs.closedJobs}</p>
+            </div>
+
+            <div className="p-6 bg-white rounded-xl shadow">
+              <h2 className="font-semibold text-lg mb-4">Applications</h2>
+              <p>Total: {stats.applications.totalApplications}</p>
+              <p>Pending: {stats.applications.pendingApplications}</p>
+              <p>Accepted: {stats.applications.acceptedApplications}</p>
+              <p>Rejected: {stats.applications.rejectedApplications}</p>
+            </div>
+
+          </div>
+        </div>
+      </main>
+    </AuthGuard>
+  );
+}
