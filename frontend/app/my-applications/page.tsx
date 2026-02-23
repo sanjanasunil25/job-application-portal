@@ -22,6 +22,11 @@ export default function MyApplicationsPage() {
       try {
         const token = localStorage.getItem("token");
 
+        if (!token) {
+          setLoading(false);
+          return;
+        }
+
         const res = await fetch(`${API}/api/applications/my`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -57,7 +62,9 @@ export default function MyApplicationsPage() {
       <h1 className="text-3xl font-bold mb-6">My Applications</h1>
 
       {applications.length === 0 ? (
-        <p className="text-gray-600">You have not applied to any jobs yet.</p>
+        <p className="text-gray-600">
+          You have not applied to any jobs yet.
+        </p>
       ) : (
         <div className="space-y-4">
           {applications.map((app) => (
@@ -65,8 +72,12 @@ export default function MyApplicationsPage() {
               key={app.id}
               className="p-4 bg-white rounded-xl shadow border"
             >
-              <h2 className="text-xl font-semibold">{app.job.title}</h2>
-              <p className="text-gray-600">{app.job.location}</p>
+              <h2 className="text-xl font-semibold">
+                {app.job?.title || "Job Title"}
+              </h2>
+              <p className="text-gray-600">
+                {app.job?.location || "Location"}
+              </p>
               <p className="mt-2 font-medium">
                 Status: <span className="text-indigo-600">{app.status}</span>
               </p>
