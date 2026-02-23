@@ -1,21 +1,41 @@
 "use client";
 
-import Navbar from "../components/Navbar";
+import { useEffect, useState } from "react";
 
 export default function MyApplicationsPage() {
+  const [applications, setApplications] = useState<any[]>([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return;
+
+    fetch("https://job-portal-backend.onrender.com/api/applications/my", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(res => res.json())
+      .then(data => setApplications(data))
+      .catch(err => console.error(err));
+  }, []);
+
   return (
-    <main className="min-h-screen bg-gray-50">
-      <Navbar />
+    <div className="min-h-screen p-6">
+      <h1 className="text-2xl font-bold mb-6">My Applications</h1>
 
-      <div className="max-w-4xl mx-auto pt-28 px-6">
-        <h1 className="text-3xl font-bold mb-6">My Applications</h1>
-
-        <div className="bg-white p-6 rounded-xl shadow">
-          <p className="text-gray-600">
-            Your job applications will appear here.
-          </p>
+      {applications.length === 0 ? (
+        <p>No applications found</p>
+      ) : (
+        <div className="space-y-4">
+          {applications.map((app, index) => (
+            <div key={index} className="p-4 border rounded-lg">
+              <h2 className="font-semibold">{app.job?.title}</h2>
+              <p>Status: {app.status}</p>
+            </div>
+          ))}
         </div>
-      </div>
-    </main>
+      )}
+    </div>
   );
 }
