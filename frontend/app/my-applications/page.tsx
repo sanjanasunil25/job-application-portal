@@ -2,36 +2,74 @@
 
 import { useEffect, useState } from "react";
 
+type Application = {
+  id: number;
+  status: string;
+  job: {
+    title: string;
+    location: string;
+  };
+};
+
 export default function MyApplicationsPage() {
-  const [applications, setApplications] = useState<any[]>([]);
+  const [applications, setApplications] = useState<Application[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const API = "https://job-application-portal-2zud.onrender.com";
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const fetchApplications = async () => {
+      try {
+        const token = localStorage.getItem("token");
 
-    if (!token) return;
+        const res = await fetch(`${API}/api/applications/my`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-    fetch("https://job-portal-backend.onrender.com/api/applications/my", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(res => res.json())
-      .then(data => setApplications(data))
-      .catch(err => console.error(err));
+        if (!res.ok) {
+          throw new Error("Failed to fetch applications");
+        }
+
+        const data = await res.json();
+        setApplications(data);
+      } catch (error) {
+        console.error("Error fetching applications:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchApplications();
   }, []);
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Loading applications...
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen p-6">
-      <h1 className="text-2xl font-bold mb-6">My Applications</h1>
+    <div className="min-h-screen p-6 bg-gray-50">
+      <h1 className="text-3xl font-bold mb-6">My Applications</h1>
 
       {applications.length === 0 ? (
-        <p>No applications found</p>
+        <p className="text-gray-600">You have not applied to any jobs yet.</p>
       ) : (
         <div className="space-y-4">
-          {applications.map((app, index) => (
-            <div key={index} className="p-4 border rounded-lg">
-              <h2 className="font-semibold">{app.job?.title}</h2>
-              <p>Status: {app.status}</p>
+          {applications.map((app) => (
+            <div
+              key={app.id}
+              className="p-4 bg-white rounded-xl shadow border"
+            >
+              <h2 className="text-xl font-semibold">{app.job.title}</h2>
+              <p className="text-gray-600">{app.job.location}</p>
+              <p className="mt-2 font-medium">
+                Status: <span className="text-indigo-600">{app.status}</span>
+              </p>
             </div>
           ))}
         </div>
