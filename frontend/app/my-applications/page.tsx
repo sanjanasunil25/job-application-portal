@@ -58,33 +58,34 @@ export default function MyApplicationsPage() {
   }
 
   return (
-    <div className="min-h-screen p-6 bg-gray-50">
-      <h1 className="text-3xl font-bold mb-6">My Applications</h1>
+  <div className="min-h-screen p-6 bg-gray-50">
+    <h1 className="text-3xl font-bold mb-6">My Applications</h1>
 
-      {applications.length === 0 ? (
-        <p className="text-gray-600">
-          You have not applied to any jobs yet.
-        </p>
-      ) : (
-        <div className="space-y-4">
-          {applications.map((app) => (
-            <div
-              key={app.id}
-              className="p-4 bg-white rounded-xl shadow border"
-            >
-              <h2 className="text-xl font-semibold">
-                {app.job?.title || "Job Title"}
-              </h2>
-              <p className="text-gray-600">
-                {app.job?.location || "Location"}
-              </p>
-              <p className="mt-2 font-medium">
-                Status: <span className="text-indigo-600">{app.status}</span>
-              </p>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+    {applications.length === 0 ? (
+      <div className="text-gray-600">
+        You have not applied to any jobs yet.
+      </div>
+    ) : (
+      <div className="space-y-4">
+        {applications.map((app) => (
+          <div
+            key={app.id}
+            className="p-4 bg-white rounded-xl shadow border"
+          >
+            <h2 className="text-xl font-semibold">
+              {app.job?.title || "Job Title"}
+            </h2>
+            <p className="text-gray-600">
+              {app.job?.location || "Location"}
+            </p>
+            <p className="mt-2 font-medium">
+              Status: <span className="text-indigo-600">{app.status}</span>
+            </p>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+);
+
 }
