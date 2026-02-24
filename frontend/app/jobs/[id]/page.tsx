@@ -25,11 +25,13 @@ export default function JobDetails() {
   const [job, setJob] = useState<Job | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const API = "https://job-application-portal-2zud.onrender.com";
+
   useEffect(() => {
     if (!id) return;
 
     axios
-      .get(`http://localhost:5000/api/jobs/${id}`)
+      .get(`${API}/api/jobs/${id}`)
       .then((res) => setJob(res.data))
       .catch(() => console.log("Failed to load job"))
       .finally(() => setLoading(false));
@@ -48,14 +50,14 @@ export default function JobDetails() {
 
   return (
     <AuthGuard>
-      <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-black dark:via-zinc-900 dark:to-black">
+      <main className="min-h-screen">
         <Navbar />
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="max-w-4xl mx-auto px-6 py-16"
+          className="max-w-4xl mx-auto px-6 pt-28 pb-16"
         >
           {loading && (
             <div className="text-center text-gray-500 text-lg">
@@ -64,13 +66,13 @@ export default function JobDetails() {
           )}
 
           {!loading && !job && (
-            <div className="text-center text-gray-500 text-lg">
+            <div className="text-center text-gray-700 text-lg">
               Job not found
             </div>
           )}
 
           {job && (
-            <div className="bg-white/80 dark:bg-zinc-900/70 backdrop-blur-xl border border-white/40 dark:border-zinc-800 rounded-3xl shadow-2xl p-10">
+            <div className="bg-white border border-gray-200 rounded-3xl shadow-xl p-10">
 
               <h1 className="text-4xl font-extrabold mb-3">
                 {job.title}
@@ -81,23 +83,23 @@ export default function JobDetails() {
               </p>
 
               <div className="flex flex-wrap gap-4 mb-10">
-                <span className="flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/40 px-4 py-2 rounded-full">
+                <span className="flex items-center gap-2 bg-indigo-50 px-4 py-2 rounded-full">
                   <FiMapPin />
                   {job.location}
                 </span>
 
-                <span className="flex items-center gap-2 bg-green-50 dark:bg-green-900/40 px-4 py-2 rounded-full">
+                <span className="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
                   <FiDollarSign />
                   {job.salary}
                 </span>
 
-                <span className="flex items-center gap-2 bg-purple-50 dark:bg-purple-900/40 px-4 py-2 rounded-full">
+                <span className="flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-full">
                   <FiBriefcase />
                   Full Time
                 </span>
               </div>
 
-              <div className="text-gray-700 dark:text-zinc-300 leading-relaxed">
+              <div className="text-gray-700 leading-relaxed">
                 <h2 className="text-2xl font-bold mb-3">Job Description</h2>
                 <p>{job.description}</p>
               </div>

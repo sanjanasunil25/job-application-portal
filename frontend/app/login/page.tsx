@@ -44,12 +44,12 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-black dark:via-zinc-900 dark:to-black">
+    <main className="min-h-screen">
 
       <Navbar />
 
       <div className="flex items-center justify-center px-6 py-20">
-        <div className="bg-white/80 dark:bg-zinc-900/70 backdrop-blur-xl border border-white/40 dark:border-zinc-800 rounded-3xl shadow-2xl p-10 w-full max-w-md">
+        <div className="bg-white border border-gray-200 rounded-3xl shadow-xl p-10 w-full max-w-md">
 
           <h2 className="text-3xl font-bold text-center mb-8">
             Welcome Back

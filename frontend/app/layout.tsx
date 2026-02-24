@@ -1,10 +1,6 @@
-import type { Metadata } from "next";
-import { Toaster } from "react-hot-toast";
-import "./globals.css";
-
-export const metadata: Metadata = {
+export const metadata = {
   title: "Job Portal",
-  description: "Modern Job Application Platform",
+  description: "Find and apply to jobs easily",
 };
 
 export default function RootLayout({
@@ -13,9 +9,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="transition-colors duration-300">
-        <Toaster position="top-right" />
+    <html lang="en">
+      <body className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 text-gray-900">
         {children}
       </body>
     </html>
