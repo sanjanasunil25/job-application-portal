@@ -18,12 +18,17 @@ export default function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
 
+  // use environment variable so the frontend can talk to whichever
+  // backend URL is configured (localhost during local development,
+  // Render URL in production).
+  const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
   useEffect(() => {
-    axios.get("http://localhost:5000/api/jobs")
+    axios.get(`${API}/api/jobs`)
       .then(res => setJobs(res.data))
       .catch(() => console.log("Failed to load jobs"))
       .finally(() => setLoading(false));
-  }, []);
+  }, [API]);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-black dark:via-zinc-900 dark:to-black">

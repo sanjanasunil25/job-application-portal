@@ -19,7 +19,7 @@ export default function CreateJobPage() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:5000/api/jobs",
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/jobs`,
         { title, description, company, location, salary },
         {
           headers: {

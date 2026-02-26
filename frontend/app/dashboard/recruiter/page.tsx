@@ -18,7 +18,8 @@ export default function RecruiterDashboard() {
 
   const fetchMyJobs = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/jobs", {
+      const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+      const res = await axios.get(`${API}/api/jobs`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -35,7 +36,7 @@ export default function RecruiterDashboard() {
   const createJob = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/api/jobs",
+        `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/jobs`,
         {
           title,
           description,

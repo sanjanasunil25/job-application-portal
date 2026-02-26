@@ -20,8 +20,9 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
     axios
-      .get("http://localhost:5000/api/jobs")
+      .get(`${API}/api/jobs`)
       .then((res) => setJobs(res.data))
       .catch(() => console.log("Failed to load jobs"))
       .finally(() => setLoading(false));
