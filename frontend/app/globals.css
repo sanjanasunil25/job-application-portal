@@ -1,38 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 body {
   background: linear-gradient(to bottom right, #f8fafc, #eef2ff);
-}
-
-.glass {
-  backdrop-filter: blur(14px);
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-
-.card {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-  transition: 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 35px rgba(0,0,0,0.1);
-}
-
-.btn-primary {
-  background: linear-gradient(to right, #6366f1, #8b5cf6);
-  color: white;
-  padding: 12px 22px;
-  border-radius: 10px;
-  font-weight: 600;
-  transition: 0.2s;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
 }

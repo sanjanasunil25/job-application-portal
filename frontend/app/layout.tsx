@@ -1,4 +1,8 @@
-export const metadata = {
+import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
+import "./globals.css";
+
+export const metadata: Metadata = {
   title: "Job Portal",
   description: "Find and apply to jobs easily",
 };
@@ -11,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 text-gray-900">
+        <Toaster position="top-right" />
         {children}
       </body>
     </html>
