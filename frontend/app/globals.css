@@ -1,5 +1,57 @@
 @import "tailwindcss";
 
+/* Base page styling */
 body {
   background: linear-gradient(to bottom right, #f8fafc, #eef2ff);
+  min-height: 100vh;
+  color: #0f172a;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* Glass card (login/register/dashboard cards) */
+.glass {
+  backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* Card hover effect */
+.card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  transition: 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0,0,0,0.1);
+}
+
+/* Primary button */
+.btn-primary {
+  background: linear-gradient(to right, #6366f1, #8b5cf6);
+  color: white;
+  border-radius: 10px;
+}
+
+/* Inputs visibility fix */
+input,
+select,
+textarea {
+  background: white;
+  color: #0f172a;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
 }
